@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  TEA-graph:
+    build: .
+    container_name: TEA-graph
+    image: tea-graph
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - driver: nvidia
+            count: all
+            capabilities: [gpu]
+    volumes:
+      - .:/work
+      - /data01:/data01
+      - /home:/home
+      - /etc/pam.d:/etc/pam.d
+      - /etc/shadow:/etc/shadow
+      - /etc/passwd:/etc/passwd
+      - /opt/conda/envs:/opt/conda/envs
+      - /mnt/data:/mnt/data/
+    ports:
+      - 8000:8000
+    working_dir: /work
+    stdin_open: true
+    tty: true
+                                                              
